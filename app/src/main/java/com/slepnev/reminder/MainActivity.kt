@@ -1,5 +1,6 @@
 package com.slepnev.reminder
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -26,9 +27,13 @@ class MainActivity : AppCompatActivity() {
         initViews() //initialize rvReminders
 
         fab.setOnClickListener {
-            val reminder = etReminder.text.toString()
-            addReminder(reminder)
+            startAddActivity()
         }
+    }
+
+    private fun startAddActivity() {
+        val intent = Intent(this, AddActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -59,9 +64,9 @@ class MainActivity : AppCompatActivity() {
         if (reminder.isNotBlank()) {
             reminders.add(Reminder(reminder))
             reminderAdapter.notifyDataSetChanged()
-            etReminder.text?.clear()
+            //etReminder.text?.clear()
         } else {
-            Snackbar.make(etReminder, "You must fill in the input field!", Snackbar.LENGTH_SHORT).show()
+            //Snackbar.make(etReminder, "You must fill in the input field!", Snackbar.LENGTH_SHORT).show()
         }
     }
 
