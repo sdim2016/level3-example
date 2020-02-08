@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
+const val ADD_REMINDER_REQUEST_CODE = 100
+
+
 class MainActivity : AppCompatActivity() {
 
     private val reminders = arrayListOf<Reminder>()
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startAddActivity() {
         val intent = Intent(this, AddActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, ADD_REMINDER_REQUEST_CODE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
