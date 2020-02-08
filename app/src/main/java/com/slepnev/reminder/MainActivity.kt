@@ -1,5 +1,6 @@
 package com.slepnev.reminder
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -63,15 +64,18 @@ class MainActivity : AppCompatActivity() {
         createItemTouchHelper().attachToRecyclerView(rvReminders)
     }
 
-    private fun addReminder(reminder: String) {
-        if (reminder.isNotBlank()) {
-            reminders.add(Reminder(reminder))
-            reminderAdapter.notifyDataSetChanged()
-            //etReminder.text?.clear()
-        } else {
-            //Snackbar.make(etReminder, "You must fill in the input field!", Snackbar.LENGTH_SHORT).show()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                ADD_REMINDER_REQUEST_CODE -> {
+                    val reminder = data!!.getParcelableExtra<Reminder>(EXTRA_REMINDER)
+                    reminders.add(reminder)
+                    reminderAdapter.notifyDataSetChanged()
+                }
+            }
         }
     }
+
 
     /**
      * Create a touch helper to recognize when a user swipes an item from a recycler view.
